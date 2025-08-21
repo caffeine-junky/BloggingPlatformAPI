@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field as PField
-from sqlmodel import SQLModel, Field, Column, ARRAY
+from sqlmodel import SQLModel, Field, Column, ARRAY, String
 from datetime import datetime, timezone
 from typing import Any
 
@@ -9,7 +9,7 @@ class Post(SQLModel, table=True):
     title: str = Field(max_length=100)
     content: str
     category: str
-    tags: list[str] = Field(min_items=1, sa_column=Column(ARRAY))
+    tags: list[str] = Field(min_items=1, sa_column=Column(ARRAY(String)))
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
